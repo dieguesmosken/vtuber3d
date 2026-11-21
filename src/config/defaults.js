@@ -8,7 +8,7 @@ export const DEFAULTS = {
   gazeRangeDeg: { yaw: 25, pitch: 15 },
   background: 'transparent',               // ou '#00ff00' para chroma key
   // Enquadramento de busto (cabeça até o peito). Ajuste com a roda do mouse.
-  camera: { fov: 30, distance: 1.1, targetY: 1.35 },
+  camera: { fov: 30, distance: 1.7, targetY: 1.3 },
   hands: true,                              // rastreamento de mãos (botão H)
   handsEvery: 1,                            // processa mãos a cada N quadros (2 = metade do custo)
   // Gestos -> expressões (valores ARKit somados por cima do rosto)

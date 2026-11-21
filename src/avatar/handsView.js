@@ -41,7 +41,8 @@ export class HandsView {
   }
 
   // hands: [{lm}], t em segundos, cam: {distance, fov}, aspectVideo, mirror
-  update(hands, t, { distance, fov, aspectVideo, mirror }) {
+  update(hands, t, { distance, fov, aspectVideo, mirror, targetY = 1.3 }) {
+    const cy = targetY;
     const z0 = 0.35;                                           // plano das mãos, à frente do rosto
     const Hv = 2 * Math.max(0.2, distance - z0) * Math.tan(THREE.MathUtils.degToRad(fov / 2));
     const Wv = Hv * aspectVideo;
@@ -55,7 +56,7 @@ export class HandsView {
         const f = slot.filters[k];
         const x = f.x.filter(p.x, t), y = f.y.filter(p.y, t), z = f.z.filter(p.z, t);
         const sx = (mirror ? 0.5 - x : x - 0.5) * Wv;
-        return new THREE.Vector3(sx, 1.35 - (y - 0.5) * Hv, z0 - z * Wv * 0.8);
+        return new THREE.Vector3(sx, cy - (y - 0.5) * Hv, z0 - z * Wv * 0.8);
       });
       pts.forEach((v, k) => slot.joints[k].position.copy(v));
       BONES.forEach(([a, b], k) => {

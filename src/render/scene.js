@@ -30,7 +30,7 @@ export function createScene(canvas, cfg) {
   addEventListener('wheel', (ev) => {
     cam.distance = Math.min(3, Math.max(0.5, cam.distance + Math.sign(ev.deltaY) * 0.05));
     applyCamera();
-    localStorage.setItem('teyo:camera', JSON.stringify(cam));
+    localStorage.setItem('vtuber3d:camera', JSON.stringify(cam));
   }, { passive: true });
 
   // Zoom por pinça (celular)

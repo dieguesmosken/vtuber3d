@@ -16,7 +16,7 @@
 - **Traga o seu modelo:** escolha ou arraste o arquivo. O último modelo fica salvo no navegador (IndexedDB), útil para a Browser Source do OBS.
 - Saída para OBS: fundo transparente (`?mode=obs`) ou verde para chroma key.
 - Privado: o vídeo da webcam e o seu modelo **não são enviados a nenhum servidor**.
-- Modelo de teste embutido (um crânio em wireframe) para validar o rastreamento sem nenhum arquivo.
+- Dois personagens embutidos para testar sem nenhum arquivo: o **Teyo (demo)**, um lobo cartoon simples com heterocromia, e um **crânio em wireframe** para validar sinais e lados.
 
 ## Usar agora (sem instalar)
 
@@ -32,7 +32,8 @@
 | Calibrar (`C`) | Grava a pose e a expressão neutras do rosto atual |
 | Espelho (`M`) | Troca esquerda/direita (modo espelho) |
 | Fundo (`G`) | Alterna entre transparente e verde (`#00ff00`) |
-| Crânio (`K`) | Volta ao modelo de teste e esquece o modelo salvo |
+| Teyo (`T`) | Carrega o personagem de demonstração e esquece o modelo salvo |
+| Crânio (`K`) | Carrega o crânio de teste e esquece o modelo salvo |
 | Mãos (`H`) | Liga/desliga o rastreamento das mãos |
 | Roda do mouse / pinça | Zoom do enquadramento |
 
@@ -42,7 +43,7 @@
 |---|---|---|
 | `mode=obs` | `/app/?mode=obs` | Esconde painel e botões (para o OBS) |
 | `bg` | `?bg=00ff00` ou `?bg=transparent` | Cor de fundo |
-| `model` | `?model=https://exemplo.com/avatar.vrm` | Carrega um modelo por URL (precisa permitir CORS) |
+| `model` | `?model=https://exemplo.com/avatar.vrm` | Carrega um modelo por URL (precisa permitir CORS). Também aceita `teyo` e `skull` |
 
 ## Usar no OBS
 
@@ -80,7 +81,7 @@ app/index.html        o app
 src/
   main.js             orquestração
   tracking/           MediaPipe (rosto, mãos), filtro One Euro, pose da cabeça
-  avatar/             adaptadores VRM, GLB e modelo de teste; mãos em 3D; mapeamento
+  avatar/             adaptadores VRM e GLB, Teyo (demo) e crânio de teste; mãos em 3D; mapeamento
   render/scene.js     cena three.js, câmera de busto, zoom
   storage/            persistência do modelo (IndexedDB)
   config/defaults.js  ajustes (sinais da cabeça, filtros, gestos, enquadramento)
@@ -126,6 +127,8 @@ Em `src/config/defaults.js`:
 Os arquivos de modelo do MediaPipe (`face_landmarker.task`, `hand_landmarker.task`) são baixados dos servidores do Google em tempo de execução, e têm termos próprios no model card de cada um.
 
 O código deste repositório é licenciado sob a [MIT](LICENSE). **Os modelos 3D que você carregar continuam sendo seus (ou de seus autores)**: respeite a licença de cada modelo.
+
+**Sobre o Teyo:** o Teyo é um personagem original de [dieguesmosken](https://github.com/dieguesmosken). O código do Teyo (demo) está sob a licença MIT, mas o design do personagem em si (nome, aparência e identidade) não é liberado para uso por terceiros.
 
 ## Contribuir
 

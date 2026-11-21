@@ -46,7 +46,7 @@ Ressalvas:
 
 ## Atalhos
 
-Hoje, os atalhos (`C`, `M`, `G`, `K`, `H`) só funcionam com a página em foco. Para trocar expressões durante o jogo, o plano é um controle remoto por WebSocket (ver Roadmap no README).
+Hoje, os atalhos (`C`, `M`, `G`, `T`, `K`, `H`) só funcionam com a página em foco. Para trocar expressões durante o jogo, o plano é um controle remoto por WebSocket (ver Roadmap no README).
 
 ## Desempenho
 

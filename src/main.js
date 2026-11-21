@@ -5,6 +5,7 @@ import { matrixToEuler } from './tracking/headPose.js';
 import { createScene, setBackground } from './render/scene.js';
 import { loadAvatar } from './avatar/loadAvatar.js';
 import { DebugSkull } from './avatar/debugSkull.js';
+import { TeyoAvatar } from './avatar/teyoAvatar.js';
 import { mirrorBlend, arkitToVrmPresets, gazeFromBlend } from './avatar/mapping.js';
 import { DEFAULTS } from './config/defaults.js';
 import { createDebugPanel } from './ui/debugPanel.js';
@@ -13,9 +14,9 @@ import { HandsView } from './avatar/handsView.js';
 import { saveModel, loadSavedModel, clearSavedModel } from './storage/modelStore.js';
 
 const params = new URLSearchParams(location.search);
-const saved = JSON.parse(localStorage.getItem('teyo:cfg') ?? '{}');
+const saved = JSON.parse(localStorage.getItem('vtuber3d:cfg') ?? '{}');
 const cfg = structuredClone({ ...DEFAULTS, ...saved });
-cfg.camera = { ...DEFAULTS.camera, ...JSON.parse(localStorage.getItem('teyo:camera') ?? '{}') };
+cfg.camera = { ...DEFAULTS.camera, ...JSON.parse(localStorage.getItem('vtuber3d:camera') ?? '{}') };
 if (params.get('mode') === 'obs') document.body.classList.add('obs');
 if (params.get('bg')) cfg.background = params.get('bg') === 'transparent' ? 'transparent' : '#' + params.get('bg');
 
@@ -35,10 +36,12 @@ const blendF = {};
 
 async function setAvatar(url, key) {
   if (avatar) { scene.remove(avatar.root); avatar.dispose(); }
-  avatar = url === 'skull' ? new DebugSkull(cfg) : await loadAvatar(url, cfg);
+  avatar = url === 'skull' ? new DebugSkull(cfg)
+    : url === 'teyo' ? new TeyoAvatar(cfg)
+      : await loadAvatar(url, cfg);
   scene.add(avatar.root);
   modelKey = key;
-  calib = JSON.parse(localStorage.getItem('teyo:calib:' + key) ?? 'null') ?? calib;
+  calib = JSON.parse(localStorage.getItem('vtuber3d:calib:' + key) ?? 'null') ?? calib;
 }
 
 async function openModelFile(f) {
@@ -59,27 +62,28 @@ addEventListener('drop', (ev) => { ev.preventDefault(); openModelFile(ev.dataTra
 addEventListener('keydown', (ev) => {
   if (ev.key === 'c' && latest.found && latest.matrix) {           // calibrar pose neutra
     calib = { head: matrixToEuler(latest.matrix, { transpose: cfg.matrixTranspose }), neutral: { ...latest.blend } };
-    localStorage.setItem('teyo:calib:' + modelKey, JSON.stringify(calib));
+    localStorage.setItem('vtuber3d:calib:' + modelKey, JSON.stringify(calib));
   }
   if (ev.key === 'm') cfg.mirror = !cfg.mirror;
   if (ev.key === 'k') { clearSavedModel(); setAvatar('skull', 'skull'); }
+  if (ev.key === 't') { clearSavedModel(); setAvatar('teyo', 'teyo'); }
   if (ev.key === 'h') { handsOn = !handsOn; if (!handsOn) { hands = []; gestures = []; } }                  // volta ao crânio de teste
   if (ev.key === 'g') { cfg.background = cfg.background === 'transparent' ? '#00ff00' : 'transparent'; setBackground(renderer, cfg.background); }
-  localStorage.setItem('teyo:cfg', JSON.stringify({ mirror: cfg.mirror, background: cfg.background, hands: handsOn }));
+  localStorage.setItem('vtuber3d:cfg', JSON.stringify({ mirror: cfg.mirror, background: cfg.background, hands: handsOn }));
 });
 
 // Padrão: crânio de teste (sem arquivo). Use ?model=/avatars/test.vrm ou o seletor de arquivo para um modelo real.
-// Modelo inicial: ?model=URL  ->  último modelo salvo neste navegador  ->  crânio de teste.
+// Modelo inicial: ?model=URL (ou teyo / skull)  ->  último modelo salvo neste navegador  ->  Teyo (demo).
 {
   const url = params.get('model');
   const stored = url ? null : await loadSavedModel();
   try {
     if (url) await setAvatar(url, url);
     else if (stored) await setAvatar(URL.createObjectURL(stored.blob), stored.name);
-    else await setAvatar('skull', 'skull');
+    else await setAvatar('teyo', 'teyo');
   } catch (e) {
-    console.warn('Modelo inicial indisponível; usando o crânio de teste.', e);
-    await setAvatar('skull', 'skull');
+    console.warn('Modelo inicial indisponível; usando o Teyo (demo).', e);
+    await setAvatar('teyo', 'teyo');
   }
 }
 await startCamera(video);
@@ -134,7 +138,7 @@ renderer.setAnimationLoop(() => {
     avatar.update(dt);
   }
   handsView.update(handsOn ? hands : [], t, {
-    distance: cfg.camera.distance, fov: cfg.camera.fov,
+    distance: cfg.camera.distance, fov: cfg.camera.fov, targetY: cfg.camera.targetY,
     aspectVideo: (video.videoWidth || 4) / (video.videoHeight || 3), mirror: cfg.mirror,
   });
   renderer.render(scene, camera);
