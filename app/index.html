@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>vtuber3d — app</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    html, body { margin: 0; background: rgba(0, 0, 0, 0); color: #eee; font: 12px monospace; overflow: hidden; }
+    canvas#c { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+    #video { position: fixed; right: 8px; bottom: 8px; width: 240px; transform: scaleX(-1); opacity: .8; }
+    #panel { position: fixed; left: 8px; top: 8px; max-height: 95vh; overflow: auto; background: #000a; padding: 6px; }
+    .row { display: flex; gap: 6px; align-items: center; }
+    .bar { height: 8px; background: #65A94F; }
+    #ui { position: fixed; right: 8px; top: 8px; background: #000a; padding: 6px; }
+    button { font: inherit; padding: 6px 8px; margin: 2px; }
+    body.obs #video, body.obs #panel, body.obs #ui { display: none; }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  <video id="video" autoplay playsinline muted></video>
+  <div id="panel"></div>
+  <div id="ui">
+    <a href="/" style="color:#c9a8ff">← sobre o projeto</a><br />
+    <input type="file" id="file" accept=".vrm,.glb" />
+    <div>Escolha ou arraste um arquivo .vrm / .glb aqui</div>
+    <div>
+      <button data-k="c">Calibrar (C)</button>
+      <button data-k="m">Espelho (M)</button>
+      <button data-k="g">Fundo (G)</button>
+      <button data-k="k">Crânio (K)</button>
+      <button data-k="h">Mãos (H)</button>
+    </div>
+    <div>Roda do mouse / pinça = zoom</div>
+  </div>
+  <!-- Fase 1 (só rastreamento): troque para /src/main_phase1.js -->
+  <script type="module" src="/src/main.js"></script>
+  <script>
+    document.querySelectorAll("button[data-k]").forEach((b) => b.addEventListener("click", () => window.dispatchEvent(new KeyboardEvent("keydown", { key: b.dataset.k }))));
+  </script>
+</body>
+</html>

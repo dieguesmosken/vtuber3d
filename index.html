@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>vtuber3d — VTuber 3D aberto, no navegador, para a sua live</title>
+  <meta name="description" content="Carregue o seu personagem 3D (.vrm ou .glb), anime com a webcam e use na live pelo OBS. Código aberto, gratuito, tudo roda no seu navegador." />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    :root { --bg:#14131a; --card:#1e1c27; --line:#2f2c3d; --txt:#ecebf1; --mut:#a6a3b5; --acc:#8b45e0; --acc2:#c9a8ff; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:var(--txt); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+    a { color:var(--acc2); }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+    header { padding: 20px 0; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    header strong { font-size: 1.15rem; letter-spacing:.3px; }
+    nav a { margin-left: 16px; text-decoration:none; color:var(--mut); }
+    nav a:hover { color:var(--txt); }
+    .hero { padding: 48px 0 36px; text-align:center; }
+    .hero h1 { font-size: clamp(2rem, 6vw, 3.2rem); line-height:1.15; margin:0 0 14px; }
+    .hero p { color:var(--mut); max-width: 640px; margin: 0 auto 26px; font-size:1.1rem; }
+    .btn { display:inline-block; padding: 12px 22px; border-radius: 10px; text-decoration:none; font-weight:600; margin: 4px; }
+    .btn.primary { background:var(--acc); color:#fff; }
+    .btn.ghost { border:1px solid var(--line); color:var(--txt); }
+    .btn:hover { filter: brightness(1.12); }
+    .badge { display:inline-block; font-size:.8rem; padding:3px 10px; border:1px solid var(--line); border-radius:999px; color:var(--mut); margin-bottom:16px; }
+    section { padding: 30px 0; }
+    h2 { font-size:1.5rem; margin: 0 0 16px; }
+    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:14px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px; }
+    .card h3 { margin:0 0 6px; font-size:1.05rem; }
+    .card p { margin:0; color:var(--mut); font-size:.95rem; }
+    ol.steps { counter-reset: s; list-style:none; padding:0; display:grid; gap:12px; }
+    ol.steps li { counter-increment: s; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 16px 16px 58px; position:relative; }
+    ol.steps li::before { content: counter(s); position:absolute; left:16px; top:14px; width:30px; height:30px; border-radius:50%; background:var(--acc); display:grid; place-items:center; font-weight:700; }
+    code { background:#0e0d13; padding: 2px 6px; border-radius:6px; font-size:.9em; }
+    pre { background:#0e0d13; border:1px solid var(--line); border-radius:12px; padding:14px; overflow:auto; }
+    .note { border-left:4px solid var(--acc); background:var(--card); padding:12px 16px; border-radius:0 10px 10px 0; color:var(--mut); }
+    footer { border-top:1px solid var(--line); margin-top:30px; padding:24px 0 40px; color:var(--mut); font-size:.9rem; }
+    table { width:100%; border-collapse: collapse; font-size:.95rem; }
+    td, th { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); }
+    th { color:var(--mut); font-weight:600; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <strong>🐺 vtuber3d</strong>
+      <nav>
+        <a href="#como-usar">Como usar</a>
+        <a href="#obs">OBS</a>
+        <a href="#modelos">Seu modelo</a>
+        <a href="https://github.com/dieguesmosken/vtuber3d">GitHub</a>
+      </nav>
+    </header>
+
+    <div class="hero">
+      <span class="badge">Alfa · código aberto · gratuito</span>
+      <h1>Seu personagem 3D na live,<br />direto do navegador</h1>
+      <p>Carregue o seu modelo <b>.vrm</b> ou <b>.glb</b>, deixe a webcam animar o rosto e a cabeça, e capture tudo no OBS com fundo transparente. Sem conta, sem upload, sem custo.</p>
+      <a class="btn primary" href="/app/">Abrir o app</a>
+      <a class="btn ghost" href="https://github.com/dieguesmosken/vtuber3d">Ver no GitHub</a>
+    </div>
+
+    <section>
+      <div class="grid">
+        <div class="card"><h3>Rosto, olhos e boca</h3><p>Rastreamento facial do MediaPipe com os 52 blendshapes no padrão ARKit, pose da cabeça, piscadas e olhar.</p></div>
+        <div class="card"><h3>Mãos e gestos</h3><p>Esqueleto das mãos em 3D e gestos (✌️ 👍 ✊ 🖐️) que disparam expressões.</p></div>
+        <div class="card"><h3>Traga o seu modelo</h3><p>Escolha ou arraste um arquivo. O app lembra o último modelo neste navegador, ótimo para o OBS.</p></div>
+        <div class="card"><h3>Pronto para o OBS</h3><p>Use como Browser Source com fundo transparente, ou com fundo verde para chroma key.</p></div>
+        <div class="card"><h3>Suavização e calibração</h3><p>Filtro One Euro contra tremor, calibração da posição neutra e modo câmera ou espelho.</p></div>
+        <div class="card"><h3>Privado por padrão</h3><p>Seu vídeo e seu modelo não saem do seu computador. Tudo roda localmente no navegador.</p></div>
+      </div>
+    </section>
+
+    <section id="como-usar">
+      <h2>Como usar em 4 passos</h2>
+      <ol class="steps">
+        <li>Abra o <a href="/app/">app</a> no Chrome ou Edge e permita o acesso à webcam. Sem modelo, aparece um crânio de teste.</li>
+        <li>Escolha ou arraste o seu arquivo <code>.vrm</code> / <code>.glb</code>. Fique de frente para a câmera e toque em <b>Calibrar</b>.</li>
+        <li>Confira os lados: feche só o seu <b>olho esquerdo</b>. O olho esquerdo do personagem (à direita da tela) deve fechar. Se não, use <b>Espelho</b>.</li>
+        <li>Para a live, use o app no OBS (veja abaixo).</li>
+      </ol>
+    </section>
+
+    <section id="obs">
+      <h2>Usar no OBS</h2>
+      <p>Adicione uma <b>Fonte de Navegador</b> com o endereço:</p>
+      <pre>https://SEU-SITE/app/?mode=obs</pre>
+      <p>O modo <code>?mode=obs</code> esconde o painel e deixa o fundo transparente. Para a Browser Source acessar a webcam, o OBS pode precisar ser iniciado com <code>--enable-media-stream</code> (relatos de usuários, não documentado oficialmente: teste na sua versão). Mantenha ligada a aceleração por hardware da Browser Source.</p>
+      <p class="note">Se preferir, abra o app no Chrome e capture a janela com chroma key (tecla <b>G</b> alterna o fundo verde). A captura de janela perde a transparência real, então escolha uma cor de chroma diferente das cores do personagem. Detalhes em <a href="https://github.com/dieguesmosken/vtuber3d/blob/main/docs/OBS.md">docs/OBS.md</a>.</p>
+    </section>
+
+    <section id="modelos">
+      <h2>Preparando o seu modelo</h2>
+      <p>O jeito mais simples é um <b>VRM 1.0</b> (VRoid Studio gera de graça). Para personagens próprios, o fluxo é Blender + <a href="https://github.com/saturday06/VRM-Addon-for-Blender">VRM Add-on</a>. Para as expressões, use os nomes do ARKit (<code>jawOpen</code>, <code>eyeBlinkLeft</code>, <code>eyeBlinkRight</code>, <code>mouthSmileLeft</code>…) ou os presets do VRM (<code>blink</code>, <code>aa</code>, <code>happy</code>…).</p>
+      <table>
+        <tr><th>Item</th><th>Recomendado</th></tr>
+        <tr><td>Formato</td><td>.vrm (1.0 ou 0.x) ou .glb com morph targets</td></tr>
+        <tr><td>Triângulos (busto)</td><td>cerca de 20 mil; corpo inteiro até 40 mil</td></tr>
+        <tr><td>Expressões</td><td>presets VRM ou nomes ARKit</td></tr>
+        <tr><td>Física</td><td>spring bones (orelhas, cauda, cabelo) no VRM</td></tr>
+      </table>
+      <p>Guia completo: <a href="https://github.com/dieguesmosken/vtuber3d/blob/main/docs/MODELOS.md">docs/MODELOS.md</a>.</p>
+    </section>
+
+    <section>
+      <h2>Código aberto</h2>
+      <p>Licença MIT. Feito com <a href="https://ai.google.dev/edge/mediapipe/solutions/guide">MediaPipe</a>, <a href="https://threejs.org">three.js</a> e <a href="https://github.com/pixiv/three-vrm">@pixiv/three-vrm</a>. Contribuições são bem-vindas: abra uma issue ou um pull request.</p>
+    </section>
+
+    <footer>
+      vtuber3d é um projeto da comunidade, em fase alfa. Respeite a licença e os termos de uso do modelo que você carregar.
+    </footer>
+  </div>
+</body>
+</html>
