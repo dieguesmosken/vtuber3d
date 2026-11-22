@@ -1,0 +1,14 @@
+vtuber3d
+Copyright 2026 Matheus Diegues (dieguesmosken) and vtuber3d contributors
+
+Este produto inclui software desenvolvido por dieguesmosken e colaboradores do vtuber3d
+(https://github.com/dieguesmosken/vtuber3d), licenciado sob a Apache License 2.0 (arquivo LICENSE).
+
+Exceção importante, fora da licença Apache-2.0:
+- O personagem Teyo (design, aparência, nome, ilustrações e modelos 3D) e o arquivo
+  src/avatar/teyoAvatar.js, que reproduz o design dele, são "todos os direitos reservados"
+  (c) 2026 Matheus Diegues. NÃO estão cobertos pela licença Apache-2.0 deste repositório.
+  É proibido copiar, modificar, redistribuir ou usar comercialmente sem autorização por escrito.
+- Os nomes "vtuber3d", "Teyo" e "Teuzin" não são licenciados (Apache-2.0, seção 6).
+
+Componentes de terceiros e suas licenças: veja THIRD_PARTY_NOTICES.md.

@@ -2,6 +2,7 @@
   "name": "vtuber3d",
   "private": true,
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "predev": "node scripts/copy-wasm.mjs",

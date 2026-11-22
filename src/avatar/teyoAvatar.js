@@ -1,3 +1,5 @@
+// Copyright (c) 2026 Matheus Diegues. Todos os direitos reservados.
+// Este arquivo reproduz o design do personagem Teyo e NÃO está sob a licença Apache-2.0 do restante do repositório (veja NOTICE).
 // Teyo (demo): personagem embutido, procedural e simples, feito só com as cores e traços do design oficial.
 // Serve de exemplo de personagem e de teste. O modelo definitivo do Teyo entra como .vrm/.glb pelo seletor de arquivo.
 // Convenção: o personagem olha para +Z; a câmera fica em +Z. +X = direita da tela = lado ESQUERDO do personagem.

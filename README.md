@@ -126,9 +126,13 @@ Em `src/config/defaults.js`:
 
 Os arquivos de modelo do MediaPipe (`face_landmarker.task`, `hand_landmarker.task`) são baixados dos servidores do Google em tempo de execução, e têm termos próprios no model card de cada um.
 
-O código deste repositório é licenciado sob a [MIT](LICENSE). **Os modelos 3D que você carregar continuam sendo seus (ou de seus autores)**: respeite a licença de cada modelo.
+O código deste repositório é licenciado sob a [Apache License 2.0](LICENSE) (veja também o [NOTICE](NOTICE) e os [avisos de terceiros](THIRD_PARTY_NOTICES.md)). **Os modelos 3D que você carregar continuam sendo seus (ou de seus autores)**: respeite a licença de cada modelo.
 
-**Sobre o Teyo:** o Teyo é um personagem original de [dieguesmosken](https://github.com/dieguesmosken). O código do Teyo (demo) está sob a licença MIT, mas o design do personagem em si (nome, aparência e identidade) não é liberado para uso por terceiros.
+**Sobre o Teyo:** o Teyo é um personagem original de [dieguesmosken](https://github.com/dieguesmosken). O design do personagem (nome, aparência, identidade, ilustrações e modelos) e o arquivo `src/avatar/teyoAvatar.js`, que o reproduz, são **todos os direitos reservados** e **não** estão cobertos pela licença Apache-2.0. Não copie nem use o Teyo sem autorização. Os nomes "vtuber3d", "Teyo" e "Teuzin" também não são licenciados.
+
+## Inspirações
+
+Interações com as mãos inspiradas, só na ideia, em projetos como o [String Mirror / music-maker](https://github.com/Hashem-Al-Ghaili/music-maker), de Hashem Al-Ghaili. Nenhum código, asset ou visual deles foi copiado; tudo é reimplementado do zero.
 
 ## Contribuir
 
@@ -138,4 +142,4 @@ Issues e pull requests são bem-vindos. Veja [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## English (short)
 
-**vtuber3d** is a free, open-source, browser-based 3D VTuber. Load your own `.vrm` / `.glb` avatar, let your webcam drive face, head and hands (MediaPipe + three.js + three-vrm), and capture it in OBS with a transparent background. Video and model never leave your machine. Alpha stage; MIT licensed. Run locally with `npm install && npm run dev`, then open `/app/`.
+**vtuber3d** is a free, open-source, browser-based 3D VTuber. Load your own `.vrm` / `.glb` avatar, let your webcam drive face, head and hands (MediaPipe + three.js + three-vrm), and capture it in OBS with a transparent background. Video and model never leave your machine. Alpha stage; code under Apache-2.0 (the Teyo character design is all rights reserved). Run locally with `npm install && npm run dev`, then open `/app/`.

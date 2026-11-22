@@ -31,4 +31,4 @@ npm run build   # confere se compila
 2. Rode `npm run build` antes de enviar.
 3. Descreva o que mudou e como testou.
 
-Ao contribuir, você concorda que o seu código seja licenciado sob a [MIT](LICENSE).
+Ao contribuir, você concorda que o seu código seja licenciado sob a [Apache License 2.0](LICENSE) (seção 5 da licença). Não envie código copiado de projetos sem licença ou com licença incompatível.
